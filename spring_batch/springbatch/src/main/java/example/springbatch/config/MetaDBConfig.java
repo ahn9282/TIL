@@ -1,4 +1,4 @@
-package eaxmple.springbatch.config;
+package example.springbatch.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -13,16 +13,16 @@ import javax.sql.DataSource;
 @Configuration
 public class MetaDBConfig {
 
+    @Primary
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource-meta")
-    public DataSource metaDatDBSource(){
-    return DataSourceBuilder.create().build();
+    public DataSource metaDBSource() {
+        return DataSourceBuilder.create().build();
     }
 
     @Primary
     @Bean
-    public PlatformTransactionManager metaTransactionManager(){
-        return new DataSourceTransactionManager(metaDatDBSource());
+    public PlatformTransactionManager metaTransactionManager() {
+        return new DataSourceTransactionManager(metaDBSource());
     }
-
 }

@@ -1,12 +1,11 @@
-package eaxmple.springbatch.config;
+package example.springbatch.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,30 +14,24 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "example.springbatch.repository",
-entityManagerFactoryRef = "dataEntityManager",
-transactionManagerRef = "dataTransactionManager")
+@EnableJpaRepositories(
+        basePackages = "example.springbatch.repository",
+        entityManagerFactoryRef = "dataEntityManager",
+        transactionManagerRef = "dataTransactionManager"
+)
 public class DataDBConfig {
-    
+
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource-data")
-    public DataSource dataDatDBSource(){
-    return DataSourceBuilder.create().build();
-    }
-    
-    @Primary
-    @Bean
-    public PlatformTransactionManager dataTransactionManager(){
-        return new DataSourceTransactionManager(dataDatDBSource());
+    public DataSource dataDBSource() {
+        return DataSourceBuilder.create().build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean dataEntityManager(){
-
+    public LocalContainerEntityManagerFactoryBean dataEntityManager() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-
-        em.setDataSource(dataDatDBSource());
-        em.setPackagesToScan(new String[]{"example.springbatch.entity"});
+        em.setDataSource(dataDBSource());
+        em.setPackagesToScan("example.springbatch.entity");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         HashMap<String, Object> properties = new HashMap<>();
@@ -49,5 +42,10 @@ public class DataDBConfig {
         return em;
     }
 
-  
+    @Bean
+    public PlatformTransactionManager dataTransactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(dataEntityManager().getObject());
+        return transactionManager;
+    }
 }
