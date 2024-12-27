@@ -42,7 +42,7 @@ public class FirstBatch {
     @Bean
     public Job firstJob(){
         return new JobBuilder("firstJob", jobRepository)
-                .start()
+                .start(firstStep())
                 .build();
     }
     @Bean
