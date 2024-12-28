@@ -45,6 +45,7 @@ public class FirstBatch {
                 .start(firstStep())
                 .build();
     }
+
     @Bean
     public Step firstStep(){
         System.out.println("first step");
