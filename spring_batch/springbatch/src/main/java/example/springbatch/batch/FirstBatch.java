@@ -39,7 +39,7 @@ public class FirstBatch {
         this.afterRepository = afterRepository;
     }
 
-    @Bean
+    @Bean("firstJob")
     public Job firstJob(){
         return new JobBuilder("firstJob", jobRepository)
                 .start(firstStep())
