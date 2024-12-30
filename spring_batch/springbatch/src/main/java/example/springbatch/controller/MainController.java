@@ -18,7 +18,7 @@ public class MainController {
     private final JobRegistry jobRegistry;
 
     @GetMapping("/first")
-    public String firstApiJobProcess(@RequestParam("value")String value) throws Exception {
+    public String firstApiJobProcess(@RequestParam("value") String value) throws Exception {
 
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("date", value)
@@ -28,8 +28,9 @@ public class MainController {
 
         return "ok";
     }
+
     @GetMapping("/second")
-    public String secondApiJobProcess(@RequestParam("value")String value) throws Exception {
+    public String secondApiJobProcess(@RequestParam("value") String value) throws Exception {
 
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("date", value)
@@ -37,6 +38,16 @@ public class MainController {
 
         jobLauncher.run(jobRegistry.getJob("secondJob"), jobParameters);
 
+        return "ok";
+    }
+
+    @GetMapping("/third")
+    public String thirdApi(@RequestParam("value") String value) throws Exception {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("date", value)
+                .toJobParameters();
+
+        jobLauncher.run(jobRegistry.getJob("thirdJob"), jobParameters);
         return "ok";
     }
 }

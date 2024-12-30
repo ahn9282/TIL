@@ -31,7 +31,8 @@ public class FirstBatch {
     private final BeforeRepository beforeRepository;
     private final AfterRepository afterRepository;
 
-    public FirstBatch(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, BeforeRepository beforeRepository, AfterRepository afterRepository) {
+    public FirstBatch(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager,
+                      BeforeRepository beforeRepository, AfterRepository afterRepository) {
 
         this.jobRepository = jobRepository;
         this.platformTransactionManager = platformTransactionManager;
