@@ -50,4 +50,13 @@ public class MainController {
         jobLauncher.run(jobRegistry.getJob("thirdJob"), jobParameters);
         return "ok";
     }
+    @GetMapping("/fourth")
+    public String fourthApi(@RequestParam("value") String value) throws Exception {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("date", value)
+                .toJobParameters();
+
+        jobLauncher.run(jobRegistry.getJob("fourthJob"), jobParameters);
+        return "ok";
+    }
 }
