@@ -26,4 +26,5 @@ public class AdminUserRest {
 
     private String password;
     private String ssn;
+    private String grade;
 }

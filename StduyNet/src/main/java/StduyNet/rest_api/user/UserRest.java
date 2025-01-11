@@ -25,5 +25,7 @@ public class UserRest {
     private String password;
     @JsonIgnore
     private String ssn;
+    @JsonIgnore
+    private String grade;
 
 }
