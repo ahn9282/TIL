@@ -2,11 +2,17 @@ package StduyNet.rest_api.controller;
 
 import StduyNet.rest_api.ex.UserNotFoundException;
 import StduyNet.rest_api.service.UserRestDaoService;
+import StduyNet.rest_api.user.AdminUserRest;
 import StduyNet.rest_api.user.UserRest;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,15 +37,19 @@ public class UserRestController {
         return service.findAll();
     }
 
+
     @GetMapping("/userRests/{id}")
     public UserRest retrieveUser(@PathVariable int id){
         UserRest user = service.findOne(id);
 
+        AdminUserRest adminUser = new AdminUserRest();
         if(user == null){
             throw new UserNotFoundException(String.format("ID: %s not found", id));
         }
+
         return user;
     }
+
 
 
     @PostMapping("/userRests")

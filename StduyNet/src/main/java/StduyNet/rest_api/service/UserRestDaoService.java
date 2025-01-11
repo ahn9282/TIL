@@ -16,9 +16,9 @@ public class UserRestDaoService {
     private static int userCount = 3;
 
     static{
-        users.add(new UserRest(1, "kevin", LocalDate.now()));
-        users.add(new UserRest(2, "john", LocalDate.now()));
-        users.add(new UserRest(3, "evan", LocalDate.now()));
+        users.add(new UserRest(1, "kevin", LocalDate.now(),"1234","1111-1111"));
+        users.add(new UserRest(2, "john", LocalDate.now(),"1234","1111-1111"));
+        users.add(new UserRest(3, "evan", LocalDate.now(),"1234","1111-1111"));
     }
 
     public List<UserRest> findAll(){
