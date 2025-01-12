@@ -4,15 +4,20 @@ import StduyNet.rest_api.ex.UserNotFoundException;
 import StduyNet.rest_api.service.UserRestDaoService;
 import StduyNet.rest_api.user.AdminUserRest;
 import StduyNet.rest_api.user.UserRest;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.context.MessageSource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,6 +25,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+@Tag(name="user-controller", description = "일반 사용자 서비스를 위한 컨트롤러")
 @RestController
 @RequestMapping("/rest")
 public class UserRestController {
@@ -38,8 +47,17 @@ public class UserRestController {
     }
 
 
+    @Operation(summary = "사용자 정보 조회 API", description = "사용자 ID를 이용하여 사용자 상세 정보 조회를 합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description="OK!!"),
+            @ApiResponse(responseCode = "400", description="BAD REQUEST!!"),
+            @ApiResponse(responseCode = "404", description="USER NOT FOUND!!"),
+            @ApiResponse(responseCode = "500", description="INTERNAL SERVER ERROR!!"),
+
+        }
+    )
     @GetMapping("/userRests/{id}")
-    public UserRest retrieveUser(@PathVariable int id){
+    public EntityModel<UserRest> retrieveUser(@PathVariable int id){
         UserRest user = service.findOne(id);
 
         AdminUserRest adminUser = new AdminUserRest();
@@ -47,7 +65,12 @@ public class UserRestController {
             throw new UserNotFoundException(String.format("ID: %s not found", id));
         }
 
-        return user;
+        EntityModel entityModel = EntityModel.of(user);
+
+        WebMvcLinkBuilder linTo = linkTo(methodOn(this.getClass()).readAllUsers());
+        entityModel.add(linTo.withRel("all-users"));
+
+        return entityModel;
     }
 
 
