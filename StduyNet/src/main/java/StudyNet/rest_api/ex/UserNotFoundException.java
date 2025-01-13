@@ -1,4 +1,4 @@
-package StduyNet.rest_api.ex;
+package StudyNet.rest_api.ex;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

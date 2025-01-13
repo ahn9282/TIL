@@ -1,4 +1,4 @@
-package StduyNet.rest_api.user;
+package StudyNet.rest_api.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;

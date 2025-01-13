@@ -1,4 +1,4 @@
-package StduyNet.rest_api.ex;
+package StudyNet.rest_api.ex;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -26,12 +25,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request) {
+    public final ResponseEntity<ExceptionResponse> handleUserNotFoundException(Exception ex, WebRequest request) {
 
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(LocalDate.now(), ex.getMessage(), request.getDescription(false));
 
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+        return ResponseEntity.badRequest().body(exceptionResponse);
     }
 
 

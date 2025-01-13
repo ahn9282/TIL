@@ -1,14 +1,11 @@
-package StduyNet.rest_api.controller;
+package StudyNet.rest_api.controller;
 
-import StduyNet.rest_api.ex.UserNotFoundException;
-import StduyNet.rest_api.service.UserRestDaoService;
-import StduyNet.rest_api.user.AdminUserRest;
-import StduyNet.rest_api.user.UserRest;
+import StudyNet.rest_api.ex.UserNotFoundException;
+import StudyNet.rest_api.service.UserRestDaoService;
+import StudyNet.rest_api.data.AdminUserRest;
+import StudyNet.rest_api.data.UserRest;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,11 +1,10 @@
-package StduyNet.rest_api.service;
+package StudyNet.rest_api.service;
 
-import StduyNet.rest_api.user.UserRest;
+import StudyNet.rest_api.data.UserRest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Component

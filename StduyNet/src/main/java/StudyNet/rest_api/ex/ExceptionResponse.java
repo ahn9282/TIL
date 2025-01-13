@@ -1,4 +1,4 @@
-package StduyNet.rest_api.ex;
+package StudyNet.rest_api.ex;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
