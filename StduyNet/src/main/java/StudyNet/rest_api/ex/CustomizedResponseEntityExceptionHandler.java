@@ -12,7 +12,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.LocalDate;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = {
+        "StudyNet.rest_api.controller",
+        "StudyNet.rest_api.ex"
+})
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
