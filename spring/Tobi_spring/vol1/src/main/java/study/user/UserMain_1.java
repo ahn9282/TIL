@@ -2,13 +2,14 @@ package study.user;
 
 import study.user.dao.UserDao;
 import study.user.dao.UserDao1;
+import study.user.dao.V1ConnectionMaker;
 import study.user.domain.User;
 
 import java.sql.SQLException;
 
 public class UserMain_1 {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new UserDao1();
+        UserDao dao = new UserDao1(new V1ConnectionMaker());
 
         User user = new User();
         user.setId("java2");
