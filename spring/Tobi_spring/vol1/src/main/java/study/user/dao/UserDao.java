@@ -5,13 +5,13 @@ import study.user.domain.User;
 import java.sql.*;
 
 public abstract class UserDao {
-    private SimpleConnectionMaker simpleConnectionMaker;
-    public UserDao(SimpleConnectionMaker simpleConnectionMaker) {
-        this.simpleConnectionMaker = simpleConnectionMaker;
+    private ConnectionMaker connectionMaker;
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection con = simpleConnectionMaker.makeNewConnection();
+        Connection con = connectionMaker.makeNewConnection();
 
         PreparedStatement pstmt = con.prepareStatement("insert into users values (?,?,?)");
         pstmt.setString(1, user.getId());
@@ -27,7 +27,7 @@ public abstract class UserDao {
 
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection con = simpleConnectionMaker.makeNewConnection();
+        Connection con = connectionMaker.makeNewConnection();
         PreparedStatement pstmt = con.prepareStatement("select * from users where id = ?");
 
         pstmt.setString(1, id);

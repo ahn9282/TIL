@@ -14,7 +14,22 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
     implementation 'com.mysql:mysql-connector-j:8.3.0'
-    implementation 'org.springframework:spring-jdbc:5.3.30'
+    implementation 'org.springframework:spring-jdbc:6.2.0'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+    implementation 'cglib:cglib:3.3.0'
+    implementation 'commons-logging:commons-logging:1.2'
+    implementation 'org.ow2.asm:asm:9.7'
+    implementation 'org.springframework:spring-beans:6.2.0'
+    implementation 'org.springframework:spring-core:6.2.0'
+    implementation 'org.springframework:spring-expression:6.2.0'
+    implementation 'org.springframework:spring-context:6.2.0'
+
+
+
 
 }
 
