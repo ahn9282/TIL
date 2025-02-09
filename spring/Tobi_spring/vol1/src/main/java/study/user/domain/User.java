@@ -1,7 +1,14 @@
 package study.user.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     String id;
@@ -43,5 +50,14 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
