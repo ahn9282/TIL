@@ -2,10 +2,11 @@ package study.user.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import study.user.code.Level;
 
-import java.util.Objects;
-
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,49 +16,10 @@ public class User {
     String name;
     String password;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    Level level;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    int login;
+    int recommend;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        User user = (User) object;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, password);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

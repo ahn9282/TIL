@@ -1,16 +1,14 @@
 package study.user.exception;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import study.config.DataSourceConfig;
 import study.template_3.JdbcTemplateUserDao;
-import study.user.dao.UserDaoWithJdbcContext;
 import study.user.domain.User;
 
 import javax.sql.DataSource;
@@ -19,12 +17,16 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@Import(DataSourceConfig.class)
+@SpringBootTest
 public class Chapter4Test {
-    @Mock
+    @Autowired
     DataSource dataSource;
-    JdbcTemplateUserDao dao = new JdbcTemplateUserDao(dataSource);
+    JdbcTemplateUserDao dao;
 
+    @BeforeEach
+    public void setUp() {
+        dao = new JdbcTemplateUserDao(dataSource);
+    }
     @Test
     public void sqlExceptionTranslate() throws SQLException, ClassNotFoundException {
         dao.deleteAll();
