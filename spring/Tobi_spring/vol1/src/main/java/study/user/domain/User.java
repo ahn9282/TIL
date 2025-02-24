@@ -15,20 +15,20 @@ public class User {
     String id;
     String name;
     String password;
+    String email;
 
     Level level;
 
     int login;
     int recommend;
 
-    public void upgradeLevel(){
-        Level nextLevel = this.level.nextLevel();
-        if(nextLevel == null){
-            throw new IllegalStateException(this.level + "은 업그레이드가 불가능");
-        }else{
-            this.level = nextLevel;
+    public void upgradeLevel() {
+        Level nextLevel = this.getLevel().nextLevel();
+        if (nextLevel == null) {
+            throw new IllegalStateException(this.getLevel() + "은 업그레이드가 불가능");
+        } else {
+            this.setLevel(nextLevel);
         }
     }
-
 
 }

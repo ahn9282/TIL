@@ -2,13 +2,16 @@ package study.user.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import study.user.domain.User;
 import study.user.code.Level;
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class UserDaoJdbc implements UserDaoInterface {
 
     private final JdbcTemplate jdbcTemplate;
@@ -24,7 +27,7 @@ public class UserDaoJdbc implements UserDaoInterface {
     private static final String DELETE_ALL_USERS = "DELETE FROM users";
 
     @Override
-    public void add(User user) {
+    public void add( User user) {
         this.jdbcTemplate.update(INSERT_USER,
                 user.getId(), user.getName(), user.getPassword(),
                 user.getLevel().getValue(), user.getLogin(), user.getRecommend());
@@ -35,7 +38,7 @@ public class UserDaoJdbc implements UserDaoInterface {
                 .stream().findFirst().orElse(null);
     }
     @Override
-    public void update(User user) {
+    public void update( User user) {
         this.jdbcTemplate.update(UPDATE_USER,
                 user.getName(), user.getPassword(), user.getLevel().getValue(),
                 user.getLogin(), user.getRecommend(), user.getId());

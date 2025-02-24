@@ -2,6 +2,7 @@ package study.user.dao;
 
 import study.user.domain.User;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface UserDaoInterface {
