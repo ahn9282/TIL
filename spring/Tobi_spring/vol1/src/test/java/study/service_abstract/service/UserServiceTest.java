@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import study.config.BeanConfig;
+import study.service_abstract.service.impl.UserService;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeanConfig.class)
