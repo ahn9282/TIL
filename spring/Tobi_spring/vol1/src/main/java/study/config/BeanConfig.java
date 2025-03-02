@@ -5,7 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import study.service_abstract.service.impl.UserService;
+import study.service_abstract.service.UserService;
+import study.service_abstract.service.impl.UserServiceImplWithTransactionManager;
+import study.service_abstract.service.impl.UserServiceImpl;
+import study.service_abstract.service.impl.UserServiceTx;
 import study.user.dao.UserDaoInterface;
 import study.user.dao.UserDaoJdbc;
 
@@ -20,8 +23,8 @@ public class BeanConfig {
         return new HikariDataSource();
     }
     @Bean
-    public UserService userService(){
-        return new UserService(userDao());
+    public UserServiceImplWithTransactionManager userServiceDoubleImpl(){
+        return new UserServiceImplWithTransactionManager(userDao());
     }
     @Bean
     public UserDaoInterface userDao(){
@@ -31,5 +34,14 @@ public class BeanConfig {
     @Bean
     public PlatformTransactionManager platformTransactionManager(){
         return new DataSourceTransactionManager(dataSource());
+    }
+    @Bean
+    public UserService userService(){
+        return new UserServiceTx(userServiceImpl(), platformTransactionManager());
+    }
+
+    @Bean
+    public UserServiceImpl userServiceImpl(){
+        return new UserServiceImpl(userDao());
     }
 }

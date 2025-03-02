@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import study.config.BeanConfig;
-import study.service_abstract.service.impl.UserService;
+import study.service_abstract.service.impl.UserServiceImplWithTransactionManager;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeanConfig.class)
-class UserServiceTest {
+class UserServiceImplWithTransactionManagerTest {
 
     @Autowired
-    UserService userService;
+    UserServiceImplWithTransactionManager userServiceImplWithTransactionManager;
     @Test
     public void beanTest(){
-        Assertions.assertThat(userService).isNotNull();
+        Assertions.assertThat(userServiceImplWithTransactionManager).isNotNull();
     }
 
 }
