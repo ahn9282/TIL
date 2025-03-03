@@ -29,15 +29,15 @@ public class BeanConfig {
     }
 
     @Bean
-    @Qualifier("userServiceImpl")
-    public UserServiceImpl userServiceImpl() {
+    @Qualifier("userService")
+    public UserService userService() {
         return new UserServiceImpl(userDao());
     }
 
     @Bean
-    @Qualifier("userService")
-    public UserService userService() {
-        return new UserServiceTx(userServiceImpl(), platformTransactionManager());
+    @Qualifier("userServiceTx")
+    public UserService userServiceTx() {
+        return new UserServiceTx(userService(), platformTransactionManager());
     }
 
     @Bean
