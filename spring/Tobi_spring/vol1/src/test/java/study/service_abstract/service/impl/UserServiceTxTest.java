@@ -1,32 +1,37 @@
 package study.service_abstract.service.impl;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import study.config.BeanConfig;
 import study.service_abstract.service.UserService;
-import study.user.dao.UserDao;
 import study.user.dao.UserDaoInterface;
 import study.user.domain.User;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeanConfig.class)
 class UserServiceTxTest {
 
     @Autowired
+    @Qualifier("userService")
     UserService userService;
     @Autowired
+    @Qualifier("userServiceImpl")
     UserServiceImpl userServiceImpl;
 
     @Test
     public void upgradeLevels() throws Exception {
         MockMailSender mockMailSender = new MockMailSender();
+        assertThat(userServiceImpl).isNotNull();
+        assertThat(mockMailSender).isNotNull();
         userServiceImpl.setMailSender(mockMailSender);
     }
 

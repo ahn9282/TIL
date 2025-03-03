@@ -2,6 +2,7 @@ package study.service_abstract.service.impl;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import study.service_abstract.service.MailSender;
 import study.service_abstract.service.UserService;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private final UserDaoInterface userDao;
     private MailSender mailSender;
 
+    @Autowired
     public void setMailSender(MailSender mailSender) {
         this.mailSender = mailSender;
     }

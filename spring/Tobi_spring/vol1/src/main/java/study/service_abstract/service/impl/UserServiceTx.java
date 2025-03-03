@@ -1,6 +1,8 @@
 package study.service_abstract.service.impl;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -9,14 +11,14 @@ import study.user.domain.User;
 
 public class UserServiceTx implements UserService {
 
-    private UserService userService;
-    private PlatformTransactionManager tm;
+    private final UserService userService;
+    private final PlatformTransactionManager tm;
 
-    public UserServiceTx(UserService userService, PlatformTransactionManager tm) {
+    @Autowired
+    public UserServiceTx(@Qualifier("userServiceImpl") UserService userService, PlatformTransactionManager tm) {
         this.userService = userService;
         this.tm = tm;
     }
-
     @Override
     public void add(User user) {
         TransactionStatus status = tm.getTransaction(new DefaultTransactionDefinition());

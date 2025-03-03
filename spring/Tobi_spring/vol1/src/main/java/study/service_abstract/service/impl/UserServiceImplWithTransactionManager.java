@@ -13,7 +13,7 @@ import study.user.domain.User;
 
 import java.util.List;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class UserServiceImplWithTransactionManager implements UserLevelUpgradePolicy, UserCRUDPolicy {
     public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
