@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.interceptor.TransactionInterceptor;
 import study.proxy.advice.TransactionAdvice;
 import study.proxy.bean_factory.TxFactoryBean;
 import study.service_abstract.service.MailSender;
@@ -33,17 +34,18 @@ public class BeanConfig {
     }
 
     @Bean
-    @Qualifier("userServiceTarget")
+    @Qualifier("userService")
     public UserService userServiceTarget() {
         return new UserServiceImpl(userDao());
     }
     @Bean
-    @Qualifier("userService")
+    @Qualifier("userServiceFactoryBean")
     public TxFactoryBean txFactoryBean(){
         TxFactoryBean txFactoryBean = new TxFactoryBean();
         txFactoryBean.setTarget(userServiceTarget());
         return txFactoryBean;
-    } @Bean
+    }
+    @Bean
     @Qualifier("coreServiceTarget")
     public UserService coreServiceTarget() {
         return new CoreService(userDao());
@@ -77,5 +79,4 @@ public class BeanConfig {
     public MailSender mailSender() {
         return new JavaMailSenderImpl();
     }
-
 }

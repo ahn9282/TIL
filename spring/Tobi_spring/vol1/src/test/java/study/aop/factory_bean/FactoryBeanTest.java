@@ -1,4 +1,4 @@
-package study.service_abstract.factory_bean;
+package study.aop.factory_bean;
 
 
 import org.assertj.core.api.Assertions;
