@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionManager;
 import study.aop.ProxyCreateTest;
 import study.proxy.pointcut.NameMatchClassMethodPointcut;
 import study.user.dao.UserDaoInterface;
@@ -40,5 +42,11 @@ public class TestConfiguration {
         pointcut.setMappedClassName("*NotServiceImpl");
         pointcut.setMappedName("upgrade*");
         return pointcut;
+    }
+
+
+    @Bean
+    public TransactionManager transactionManager(){
+        return new DataSourceTransactionManager();
     }
 }
