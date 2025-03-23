@@ -10,6 +10,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import study.aop.ProxyCreateTest;
 import study.proxy.pointcut.NameMatchClassMethodPointcut;
+import study.service_abstract.service.MailSender;
+import study.service_abstract.service.impl.JavaMailSenderImpl;
 import study.user.dao.UserDaoInterface;
 import study.user.dao.UserDaoJdbc;
 
@@ -26,12 +28,12 @@ public class TestConfiguration {
     @Bean
     @Qualifier("testUserDao")
     public UserDaoInterface testUserDao() {
-        return new UserDaoJdbc(dataSource());
+        return new UserDaoJdbc(testDataSource());
     }
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
-    @Primary
-    public DataSource dataSource() {
+    @Qualifier("testDataSource")
+    public DataSource testDataSource() {
         return new HikariDataSource();
     }
 
@@ -47,6 +49,12 @@ public class TestConfiguration {
 
     @Bean
     public TransactionManager transactionManager(){
-        return new DataSourceTransactionManager();
+        return new DataSourceTransactionManager(testDataSource());
+    }
+
+    @Bean
+    @Qualifier("testMailSender")
+    public MailSender testMailSender() {
+        return new JavaMailSenderImpl();
     }
 }
