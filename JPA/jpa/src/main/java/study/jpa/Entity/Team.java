@@ -3,6 +3,7 @@ package study.jpa.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import study.jpa.Entity.product.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Team {
+public class Team  extends BaseEntity {
 
     @Id
     @GeneratedValue

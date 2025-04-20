@@ -2,7 +2,9 @@ package study.jpa.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import study.jpa.Entity.product.BaseEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member  extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -32,7 +34,8 @@ public class Member {
     @JoinColumn(name="LOCKER_ID")
     private Locker locker;
 
-    @OneToMany
-    @JoinTable(name = "MEMBER_PRODUCT")
+    @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
+
+
 }
