@@ -16,6 +16,33 @@ public class proxy_test_1 {
     private EntityManager em;
 
     @Test
+    public void testProxyEntityCheck(){
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try{
+            Member member1 = new Member();
+            member1.setUserName("member1");
+            em.persist(member1);
+
+            em.flush();
+            em.clear();
+
+            Member refMember = em.getReference(Member.class, member1.getId());
+
+            em.clear();
+
+            refMember.getUserName();
+
+            tx.commit();
+
+        }catch(Exception e){
+            tx.rollback();
+        }finally{
+            em.close();
+        }
+    }
+
+    @Test
     public void changeUserNameAndFindTest(){
         EntityTransaction tx = em.getTransaction();
         tx.begin();
