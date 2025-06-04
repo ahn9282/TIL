@@ -1,15 +1,16 @@
 package study.string_utils;
 
-import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.Assertions;
 
 import static org.assertj.core.api.Assertions.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.api.Assertions;
 
 public class compare_string {
     public static void main(String[] args) {
 
         boolean contains = StringUtils.contains("abc", "c");
-        assertThat( contains);
+        Assertions.assertThat(contains);
 
         //문자열 중 만자가 하나라도 포함되어 있다면 true
         boolean containsAny = StringUtils.containsAny("abcde", "cgv");
@@ -17,12 +18,12 @@ public class compare_string {
 
         //비교할 문자열이 포함되어 있으면 true반환 대소문자 구분 X
         StringUtils.containsIgnoreCase("XXX", "xxx");
-        assertThat( containsAny);
+        assertThat(containsAny);
 
         //문자가 하나라도 포함되어 잇으면 false반환
         boolean containsNone = StringUtils.containsNone("apple", "banana");
-        assertThat( containsNone);
-        
+        assertThat(containsNone);
+
         //문자열 안에 공백이 포함되어 있으면 true 반환
         boolean containsWhitespace = StringUtils.containsWhitespace("q w e");
         assertThat(containsWhitespace);
@@ -50,7 +51,6 @@ public class compare_string {
         boolean endsWithAny2 = StringUtils.endsWithAny("plan a", "A");
         assertThat(endsWithAny1).isTrue();
         assertThat(endsWithAny2).isFalse();
-
 
 
     }
