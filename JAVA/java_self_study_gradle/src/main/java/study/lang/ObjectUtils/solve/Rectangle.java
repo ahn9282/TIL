@@ -1,4 +1,4 @@
-package study.ObjectUtils.solve;
+package study.lang.ObjectUtils.solve;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package study.ObjectUtils.poly;
+package study.lang.ObjectUtils.poly;
 
 public class Car {
 

@@ -1,4 +1,4 @@
-package study.ObjectUtils.solve;
+package study.lang.ObjectUtils.solve;
 
 public class SolveMain {
     public static void main(String[] args) {

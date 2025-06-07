@@ -1,4 +1,4 @@
-package study.ObjectUtils;
+package study.lang.ObjectUtils;
 
 public class Parent {
 

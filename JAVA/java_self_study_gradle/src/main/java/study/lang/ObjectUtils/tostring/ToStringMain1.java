@@ -1,4 +1,4 @@
-package study.ObjectUtils.tostring;
+package study.lang.ObjectUtils.tostring;
 
 public class ToStringMain1 {
 
