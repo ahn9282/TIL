@@ -1,4 +1,4 @@
-package study.lang.lang.immutable.change;
+package study.lang.immutable.change;
 
 public class ImmutableObj {
 

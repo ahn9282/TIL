@@ -1,4 +1,4 @@
-package study.lang.lang.immutable.date;
+package study.lang.immutable.date;
 
 public class ImmutableDate {
 

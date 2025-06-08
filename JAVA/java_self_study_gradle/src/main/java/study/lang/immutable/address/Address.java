@@ -1,4 +1,4 @@
-package study.lang.lang.immutable.address;
+package study.lang.immutable.address;
 
 public class Address {
 
