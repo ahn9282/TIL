@@ -1,4 +1,4 @@
-package study.lambda.ex2;
+package study.lambda.lambda2.ex2;
 
 import java.util.ArrayList;
 import java.util.List;

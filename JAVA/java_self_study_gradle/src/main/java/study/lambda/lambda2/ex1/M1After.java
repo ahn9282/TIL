@@ -1,4 +1,4 @@
-package study.lambda.ex1;
+package study.lambda.lambda2.ex1;
 
 public class M1After {
     public static void greetMorning() {

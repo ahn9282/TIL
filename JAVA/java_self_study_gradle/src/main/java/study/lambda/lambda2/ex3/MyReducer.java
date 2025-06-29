@@ -1,4 +1,4 @@
-package study.lambda.ex3;
+package study.lambda.lambda2.ex3;
 
 @FunctionalInterface
 public interface MyReducer {
