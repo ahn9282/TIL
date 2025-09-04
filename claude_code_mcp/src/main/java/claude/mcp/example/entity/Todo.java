@@ -1,44 +1,56 @@
 package claude.mcp.example.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "todos")
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class Todo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String title;
     
-    @Column(length = 500)
     private String description;
     
     @Column(nullable = false)
-    @Builder.Default
-    private Boolean isDone = false;
+    private Boolean completed = false;
     
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
     
-    @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    
+    // User와 ManyToOne 연관관계 추가
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+    
+    public Todo(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+    }
 }

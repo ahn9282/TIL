@@ -1,257 +1,56 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>투두 목록 - Todo App</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            background-color: #007bff;
-            color: white;
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-        
-        .header h1 {
-            text-align: center;
-            font-size: 2rem;
-        }
-        
-        .nav {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        
-        .nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s;
-        }
-        
-        .nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .alert {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            border: 1px solid transparent;
-        }
-        
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        
-        .alert-error {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-        
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        
-        .btn-success {
-            background-color: #28a745;
-            color: white;
-        }
+package claude.mcp.example.entity;
 
-        .btn-success:hover {
-            background-color: #218838;
-        }
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
+import java.time.LocalDateTime;
 
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-
-        .btn-sm {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .todo-item {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .todo-completed {
-            opacity: 0.7;
-        }
-
-        .todo-completed .todo-title {
-            text-decoration: line-through;
-        }
-
-        .todo-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .todo-description {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .todo-meta {
-            font-size: 0.875rem;
-            color: #999;
-            margin-bottom: 1rem;
-        }
-
-        .todo-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .todo-actions form {
-            display: inline;
-        }
-
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            margin-right: 1rem;
-        }
-
-        .checkbox-wrapper input[type="checkbox"] {
-            margin-right: 0.5rem;
-            width: 18px;
-            height: 18px;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .status-completed {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: #666;
-        }
-
-        .empty-state h3 {
-            margin-bottom: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>투두 목록</h1>
-            <div class="nav">
-                <a th:href="@{/todos}">목록</a>
-                <a th:href="@{/todos/create}">새 투두</a>
-            </div>
-        </div>
-
-        <!-- 메시지 알림 -->
-        <div th:if="${message}" th:class="'alert alert-' + ${messageType}">
-            <span th:text="${message}"></span>
-        </div>
-
-        <!-- 투두 목록 -->
-        <div th:if="${todos != null and !todos.empty}">
-            <div th:each="todo : ${todos}" th:class="${todo.isDone} ? 'todo-item todo-completed' : 'todo-item'">
-                <div class="todo-title" th:text="${todo.title}">투두 제목</div>
-                <div class="todo-description" th:if="${todo.description}" th:text="${todo.description}">투두 설명</div>
-                <div class="todo-meta">
-                    <span class="status-badge" th:class="${todo.isDone} ? 'status-badge status-completed' : 'status-badge status-pending'"
-                          th:text="${todo.isDone} ? '완료' : '진행중'">상태</span>
-                    <span th:text="'생성일: ' + ${#temporals.format(todo.createdAt, 'yyyy-MM-dd HH:mm')}">생성일</span>
-                    <span th:if="${todo.updatedAt != todo.createdAt}"
-                          th:text="' | 수정일: ' + ${#temporals.format(todo.updatedAt, 'yyyy-MM-dd HH:mm')}">수정일</span>
-                </div>
-                <div class="todo-actions">
-                    <div class="checkbox-wrapper">
-                        <form th:action="@{/todos/{id}/toggle(id=${todo.id})}" method="post">
-                            <input type="checkbox" th:checked="${todo.isDone}" onchange="this.form.submit()">
-                            <label th:text="${todo.isDone} ? '완료됨' : '완료 처리'">완료 처리</label>
-                        </form>
-                    </div>
-                    <form th:action="@{/todos/{id}/delete(id=${todo.id})}" method="post"
-                          onsubmit="return confirm('정말 삭제하시겠습니까?')">
-                        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 빈 상태 -->
-        <div th:if="${todos == null or todos.empty}" class="empty-state">
-            <h3>등록된 투두가 없습니다</h3>
-            <p>새로운 투두를 추가해보세요!</p>
-            <a th:href="@{/todos/create}" class="btn btn-primary">첫 번째 투두 만들기</a>
-        </div>
-    </div>
-</body>
-</html>
+@Entity
+@Table(name = "todos")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Todo {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false)
+    private String title;
+    
+    private String description;
+    
+    @Column(nullable = false)
+    private Boolean completed = false;
+    
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+    
+    // User와 ManyToOne 연관관계 추가
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+    
+    public Todo(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+    }
+}
