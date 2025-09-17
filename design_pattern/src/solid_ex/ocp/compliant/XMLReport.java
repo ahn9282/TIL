@@ -1,6 +1,6 @@
 package solid_ex.ocp.compliant;
 
-public class XMLReport extends Report {
+public class XMLReport implements Report {
     @Override
     public void generate() {
         System.out.println("Generating XML report...");
