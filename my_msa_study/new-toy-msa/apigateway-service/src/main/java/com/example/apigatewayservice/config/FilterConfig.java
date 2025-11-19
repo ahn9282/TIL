@@ -13,7 +13,7 @@ public class FilterConfig {
         this.env = env;
     }
 
-    //    @Bean
+    @Bean
     public RouteLocator getRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/first-service/**")
