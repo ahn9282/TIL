@@ -4,16 +4,19 @@ spring:
 
   cloud:
     gateway:
-      mvc:
-        routes:
-          - id: first-service
-            uri: http://localhost:8081/
-            predicates:
-              - Path=/first-service/**
-          - id: second-service
-            uri: http://localhost:8082/
-            predicates:
-              - Path=/second-service/**
+      server: # <-- server: 추가
+        webflux:
+          routes:
+            - id: first-service
+              uri: http://localhost:8081
+              predicates:
+                - Path=/first-service/**
+              filters:
+            - id: second-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/second-service/**
+              filters:
 
 server:
   port: 8000
