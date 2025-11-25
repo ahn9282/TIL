@@ -10,6 +10,7 @@ public class UserDto {
     private String email;
     private String name;
     private Date createAt;
+    private String pwd;
 
     private String encryptedPwd;
 }

@@ -15,7 +15,10 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
-
+  security:
+    user:
+      name: user
+      password: $2a$10$/WF9EeuJ1/nF6/nnmfO35.QMFrVH7OMzYmdP4wF2cNKbD.jY6d1Zi
   jpa:
     hibernate:
       ddl-auto: update
