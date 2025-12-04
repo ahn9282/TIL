@@ -1,14 +1,14 @@
 package com.ajs.test.study.chapter1_junit;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class) // @Test 메서드 이름에 언더바를 " "로 변경해서 display 해준다.
 public class JUnitPracticeTest {
 
     @Test
-    public void assertEqualsTest() {
+    public void assert_equals_test() {
         String expect = "something";
         String actual = "something";
 
@@ -16,6 +16,7 @@ public class JUnitPracticeTest {
     }
 
     @Test
+    @DisplayName("Assert Not Equals Test 메소드 테스트")
     public void assertNotEqualsTest() {
         String expect = "something";
         String actual = "hello";
