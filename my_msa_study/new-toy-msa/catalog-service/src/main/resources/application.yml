@@ -1,33 +1,32 @@
 server:
   port: 0
-  ##servlet:
-    ##context-path: /user-service
 
 spring:
   application:
-    name: user-service
+    name: catalog-service
   h2:
     console:
       enabled: true
       settings:
         web-allow-others: true
       path: /h2
+
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;
+    url: jdbc:h2:mem:testdb
     username: sa
     password:
   jpa:
     hibernate:
-      ddl-auto: update
-  security:
-    user:
-      name: user
-      password: $2a$10$/WF9EeuJ1/nF6/nnmfO35.QMFrVH7OMzYmdP4wF2cNKbD.jY6d1Zi
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    database: h2
+    defer-datasource-initialization: true
 
 logging:
   level:
-    org.springframework.security: DEBUG
+    com.example.catalogservice: DEBUG
 
 eureka:
   instance:
@@ -37,6 +36,3 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-
-greeting:
-  message: Welcome to the Simple E-commerce.
