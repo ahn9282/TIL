@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Getter
 @Service
 @Builder
@@ -38,4 +40,16 @@ public class StudentScore {
 
     @Column(name = "math_score")
     private Integer mathScore;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentScore that = (StudentScore) o;
+        return exam == that.exam && Objects.equals(studentName, that.studentName) && Objects.equals(korScore, that.korScore) && Objects.equals(engScore, that.engScore) && Objects.equals(mathScore, that.mathScore);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(exam, studentName, korScore, engScore, mathScore);
+    }
 }

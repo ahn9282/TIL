@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -15,6 +17,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "student_pass")
 @Entity
 public class StudentPass {
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentPass that = (StudentPass) o;
+        return exam == that.exam && Objects.equals(studentName, that.studentName) && Objects.equals(avgScore, that.avgScore);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(exam, studentName, avgScore);
+    }
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)

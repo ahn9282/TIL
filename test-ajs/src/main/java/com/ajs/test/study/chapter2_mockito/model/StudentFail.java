@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -28,4 +30,16 @@ public class StudentFail {
 
     @Column(name = "avg_score")
     private Double avgScore;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentFail that = (StudentFail) o;
+        return exam == that.exam && Objects.equals(studentName, that.studentName) && Objects.equals(avgScore, that.avgScore);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(exam, studentName, avgScore);
+    }
 }
