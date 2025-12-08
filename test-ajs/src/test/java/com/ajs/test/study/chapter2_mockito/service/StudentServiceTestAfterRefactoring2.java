@@ -10,6 +10,8 @@ import com.ajs.test.study.chapter2_mockito.model.StudentScore;
 import com.ajs.test.study.chapter2_mockito.model.repository.StudentFailRepository;
 import com.ajs.test.study.chapter2_mockito.model.repository.StudentPassRepository;
 import com.ajs.test.study.chapter2_mockito.model.repository.StudentScoreRepository;
+import com.ajs.test.study.model.StudentFailFixture;
+import com.ajs.test.study.model.StudentPassFixture;
 import com.ajs.test.study.model.StudentScoreTestBuilder;
 import com.ajs.test.study.model.StudentTextFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-class StudentServiceTestAfterRefactoring {
+class StudentServiceTestAfterRefactoring2 {
 
     private StudentService studentService;
     private StudentScoreRepository studentScoreRepository = Mockito.mock(StudentScoreRepository.class);
@@ -48,16 +50,7 @@ class StudentServiceTestAfterRefactoring {
 
         StudentScore expectStudentScore = StudentScoreTestBuilder.passed().build();
 
-        StudentPass expectStudentPass = StudentPass.builder()
-                .studentName(expectStudentScore.getStudentName())
-                .exam(expectStudentScore.getExam())
-                .avgScore((new MyCalculator(0.0))
-                        .add(expectStudentScore.getKorScore().doubleValue())
-                        .add(expectStudentScore.getEngScore().doubleValue())
-                        .add(expectStudentScore.getMathScore().doubleValue())
-                        .divide(3.0)
-                        .getResult())
-                .build();
+        StudentPass expectStudentPass = StudentPassFixture.create(expectStudentScore);
 
         ArgumentCaptor<StudentScore> studentScoreArgumentCaptor = ArgumentCaptor.forClass(StudentScore.class);
         ArgumentCaptor<StudentPass> studentPassArgumentCaptor = ArgumentCaptor.forClass(StudentPass.class);
@@ -96,16 +89,7 @@ class StudentServiceTestAfterRefactoring {
 
         StudentScore expectStudentScore = StudentTextFixture.failed();
 
-        StudentFail expectStudentFail = StudentFail.builder()
-                .studentName(expectStudentScore.getStudentName())
-                .exam(expectStudentScore.getExam())
-                .avgScore((new MyCalculator(0.0))
-                        .add(expectStudentScore.getKorScore().doubleValue())
-                        .add(expectStudentScore.getEngScore().doubleValue())
-                        .add(expectStudentScore.getMathScore().doubleValue())
-                        .divide(3.0)
-                        .getResult())
-                .build();
+        StudentFail expectStudentFail = StudentFailFixture.create(expectStudentScore);
 
         studentService.saveScore(
                 expectStudentScore.getStudentName()
@@ -140,15 +124,15 @@ class StudentServiceTestAfterRefactoring {
     @DisplayName("합격자 명단 가져오기")
     public void getPassStudentTest() {
 
-        StudentPass expectStudent1 = StudentPass.builder().id(1L).studentName("jsa1").exam(Exam.math).avgScore(80.0).build();
-        StudentPass expectStudent2 = StudentPass.builder().id(2L).studentName("jsa2").exam(Exam.math).avgScore(68.0).build();
-        StudentPass expectStudent3 = StudentPass.builder().id(3L).studentName("jsa3").exam(Exam.math).avgScore(67.0).build();
+        StudentPass expectStudent1 = StudentPassFixture.create("jsa1", Exam.math);
+        StudentPass expectStudent2 = StudentPassFixture.create("jsa2", Exam.math);
+        StudentPass expectStudent3 = StudentPassFixture.create("jsa3", Exam.math);
 
         //mock 객체인 studentPassRepository 내 findAll 호출 시 해당 값을 반환하도록 설정
         Mockito.when(studentPassRepository.findAll()).thenReturn(List.of(
-                StudentPass.builder().id(1L).studentName("jsa1").exam(Exam.math).avgScore(80.0).build(),
-                StudentPass.builder().id(2L).studentName("jsa2").exam(Exam.math).avgScore(68.0).build(),
-                StudentPass.builder().id(3L).studentName("jsa3").exam(Exam.math).avgScore(67.0).build()
+                expectStudent1,
+                expectStudent2,
+                expectStudent3
         ));
 
 
@@ -165,14 +149,14 @@ class StudentServiceTestAfterRefactoring {
     @DisplayName("불합격자 명단 가져오기 검증")
     public void getFailStudentTest() {
 
-        StudentFail expectStudent1 = StudentFail.builder().id(1L).studentName("jsa1").exam(Exam.math).avgScore(30.0).build();
-        StudentFail expectStudent2 = StudentFail.builder().id(2L).studentName("jsa2").exam(Exam.math).avgScore(48.0).build();
+        StudentFail expectStudent1 = StudentFailFixture.create("jsa1", Exam.math);
+        StudentFail expectStudent2 = StudentFailFixture.create("jsa2", Exam.math);
         StudentFail notExpectStudent3 = StudentFail.builder().id(3L).studentName("im not").exam(Exam.math).avgScore(57.0).build();
 
         //mock 객체인 studentPassRepository 내 findAll 호출 시 해당 값을 반환하도록 설정
         Mockito.when(studentFailRepository.findAll()).thenReturn(List.of(
-                StudentFail.builder().id(1L).studentName("jsa1").exam(Exam.math).avgScore(30.0).build(),
-                StudentFail.builder().id(2L).studentName("jsa2").exam(Exam.math).avgScore(48.0).build()
+                expectStudent1,
+                expectStudent2
         ));
 
 
