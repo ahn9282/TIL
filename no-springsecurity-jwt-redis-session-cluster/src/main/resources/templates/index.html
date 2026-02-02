@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>메인 페이지</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div class="container">
+    <h1>환영합니다!</h1>
 
+    <div id="guest-view">
+        <p>현재 <strong>비로그인(Guest)</strong> 상태입니다.</p>
+        <button onclick="location.href='/login'">로그인</button>
+        <button class="secondary" onclick="location.href='/signup'">회원가입</button>
+    </div>
+
+    <div id="user-view" class="hidden">
+        <p>안녕하세요, <strong id="user-nickname">User</strong>님!</p>
+        <button class="secondary" onclick="testApi()">인증 API 테스트</button>
+        <button onclick="logout()">로그아웃</button>
+    </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        if (Auth.isLoggedIn()) {
+            showUserView();
+        } else {
+            // 비로그인 시 Guest 토큰 발급 시도 (선택 사항)
+            // await issueGuestToken();
+        }
+    });
+
+    function showUserView() {
+        document.getElementById('guest-view').classList.add('hidden');
+        document.getElementById('user-view').classList.remove('hidden');
+        // 닉네임 등을 토큰에서 파싱해서 보여줄 수도 있음 (JWT Decode 필요)
+    }
+
+    function logout() {
+        Auth.logout();
+    }
+
+    async function testApi() {
+        // 인증이 필요한 API 호출 테스트
+        const response = await Auth.request('/api/users/me'); // 예시 API
+        if (response && response.ok) {
+            const data = await response.json();
+            alert('API 호출 성공: ' + JSON.stringify(data));
+        } else {
+            alert('API 호출 실패');
+        }
+    }
+</script>
 </body>
 </html>
