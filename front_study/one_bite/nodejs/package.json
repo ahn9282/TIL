@@ -1,0 +1,16 @@
+{
+  "name": "start",
+  "version": "1.0.0",
+  "description": "노드js 스터디 패키지 생성",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "test"
+  },
+  "dependencies": {
+    "randomcolor": "^0.6.2"
+  }
+}
