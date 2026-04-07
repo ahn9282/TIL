@@ -17,7 +17,7 @@ const Button = ({text, color="black", children}) => {
             {children}
         </button>
     );
-
+ 
 };
 
 export default Button
