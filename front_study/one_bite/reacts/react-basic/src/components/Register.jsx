@@ -6,47 +6,36 @@ import {useState} from 'react'
 // 4. 자기소개
 
 const Register = () => {
-    const [name, setName] = useState("");
-    const [country, setCountry] = useState("");
-    const [birth, setBirthDate] = useState("");
-    const [introduce, setIntroduce] = useState("");
-    
-    const onChangeName = (e) =>{
-        setName(e.target.value);
-        console.log(e);
-    }
-    
-    const onChangeBirthDate = (e) =>{
-        setBirthDate(e.target.value);
-        console.log(e);
-    }  
-    
-    const onChangeCountry = (e) =>{
-        setCountry(e.target.value);
-        console.log(e);
-    }
+    const [input, setInput] = useState({
+        name: "",
+        birth: "",
+        country: "",
+        introduce: "",
+    });
 
-    const onChangeIntroduce = (e) =>{
-        setIntroduce(e.target.value);
-        console.log(e);
+    const onChange= (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value,
+        });
     }
 
         return (
             <div>
-                <input placeholder={"이름"} onChange={onChangeName}/>{name}
+                <input placeholder={"이름"} onChange={onChange} name="name"/>{input.name}
                 <br></br>
-                <input placeholder={"생년월일"} type="date" onChange={onChangeBirthDate} /> {birth}
+                <input placeholder={"생년월일"} type="date" onChange={onChange} name="birth" /> {input.birth}
                 <br></br>
-                <select placeholder={"국적"} onChange={onChangeCountry}>
+                <select placeholder={"국적"} onChange={onChange} name="country">
                     <option value="" hidden>국적을 선택해주세요</option>
                     <option value="KO">한국</option>
                     <option value="US">미국</option>
                     <option value="JP">일본</option>
-                </select>{country}
+                </select>{input.country}
                 <br></br>
-                <textarea placeholder={"자기소개"} onChange={onChangeIntroduce} />{introduce}
+                <textarea placeholder={"자기소개"} onChange={onChange} name="introduce" />{input.introduce}
                 <br></br>
-                <button onClick={() => {console.log(name, birth, country, introduce)}}>회원가입</button>
+                <button onClick={() => {console.log(input)}}>회원가입</button>
             </div>
         );
 }
