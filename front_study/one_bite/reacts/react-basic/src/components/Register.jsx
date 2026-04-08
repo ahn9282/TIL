@@ -1,9 +1,4 @@
-import {useState} from 'react'
-//간단한 회원 가입 폼
-// 1. 이름
-// 2. 생년월일
-// 3. 국적
-// 4. 자기소개
+import {useState, useRef} from 'react'
 
 const Register = () => {
     const [input, setInput] = useState({
@@ -13,16 +8,31 @@ const Register = () => {
         introduce: "",
     });
 
+    const countRef = useRef(0);
+    const inputRef = useRef();
+    const onClickRef = () => {
+        countRef.current += 1; 
+        console.log(countRef.current)
+    }
+
     const onChange= (e) => {
         setInput({
             ...input,
             [e.target.name]: e.target.value,
         });
+        countRef.current++;
+    }
+
+    const onSubmit = () => {
+        if (input.name === "") {
+            inputRef.current.focus();
+            return;
+        }
     }
 
         return (
             <div>
-                <input placeholder={"이름"} onChange={onChange} name="name"/>{input.name}
+                <input placeholder={"이름"} onChange={onChange} name="name" ref={inputRef}/>{input.name}
                 <br></br>
                 <input placeholder={"생년월일"} type="date" onChange={onChange} name="birth" /> {input.birth}
                 <br></br>
@@ -35,7 +45,9 @@ const Register = () => {
                 <br></br>
                 <textarea placeholder={"자기소개"} onChange={onChange} name="introduce" />{input.introduce}
                 <br></br>
-                <button onClick={() => {console.log(input)}}>회원가입</button>
+                <button onClick={onSubmit}>회원가입</button>
+                <br></br>
+                <button onClick={onClickRef}>Ref 증가</button>
             </div>
         );
 }
