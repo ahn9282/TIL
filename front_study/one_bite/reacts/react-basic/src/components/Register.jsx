@@ -1,4 +1,5 @@
 import {useState, useRef} from 'react'
+import HookExam from '../components/HookExam'
 
 const Register = () => {
     const [input, setInput] = useState({
