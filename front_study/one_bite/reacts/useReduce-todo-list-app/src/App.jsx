@@ -2,7 +2,7 @@ import './App.css'
 import Header from "./components/Header.jsx";
 import Editor from "./components/Editor.jsx";
 import List from "./components/List.jsx";
-import {useReducer, useRef} from "react";
+import {useReducer, useRef, useCallback} from "react";
 import Exam from "./components/Exam.jsx";
 
 const createMockData = function (id, isDone, content, date) {
@@ -47,17 +47,18 @@ function App() {
         })
     }
 
-    const onCreate = (content) => {
+    const onCreate = useCallback((content) => {
         callTodoDispatch("CREATE", createMockData(idRef.current++, false, content, new Date().getTime()));
-    }
+    }, []);
 
-    const onUpdate = (targetId) => {
+    const onUpdate = useCallback((targetId) => {
         callTodoDispatch("UPDATE", targetId);
-    }
+    }, []);
 
-    const onDelete = (targetId) => {
+    const onDelete = useCallback((targetId) => {
         callTodoDispatch("DELETE", targetId);
-    }
+    }, []);
+
 
     return (
         <div className="App">
