@@ -4,6 +4,7 @@ import New from './pages/New'
 import Diary from './pages/Diary'
 import {Route, Routes, Link, useNavigate} from "react-router-dom";
 import Notfound from "./pages/Notfound.jsx";
+import {getEmotionImage} from "./util/get-emotion-image.js"
 
 
 const App = () => {
@@ -14,6 +15,14 @@ const App = () => {
     }
     return (
         <div className='App'>
+
+            <div>
+                <img src={getEmotionImage(1)} />
+                <img src={getEmotionImage(2)} />
+                <img src={getEmotionImage(3)} />
+                <img src={getEmotionImage(4)} />
+                <img src={getEmotionImage(5)} />
+            </div>
             <div>
                 <Link to={"/"}>Home</Link>
                 <Link to={"/new"}>New</Link>
